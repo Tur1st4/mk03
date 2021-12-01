@@ -5,8 +5,6 @@
 
 from bs4 import BeautifulSoup
 
-from models.video import Video
-
 
 def find_search_videos(soup: BeautifulSoup):
     matchs = soup.find_all('div', class_='thumb-block')
@@ -15,11 +13,10 @@ def find_search_videos(soup: BeautifulSoup):
     for video in matchs:
         info = video.find('div', class_='thumb-under').find('a')
         title = info['title']
-        url = info['href']
+        url = 'https://www.xvideos.com' + info['href']
         duration = info.find('span').text
         thumbnail = video.find('div', class_='thumb-inside').find('img')['data-src']
 
-        # videos.append(Video(title, url, duration, thumbnail))
         videos.append({"title": title, "url": url, "duration": duration, "thumbnail": thumbnail})
 
     return videos
